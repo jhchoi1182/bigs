@@ -4,11 +4,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default observer(function NewsBoard() {
-  console.log(newsOrder.selectedValue);
-
   return <div>NewsBoard</div>;
 });
 
-const NewsBoardSection = styled.section`
-  
-`
+const NewsBoardSection = styled.section``;
