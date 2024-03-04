@@ -2,21 +2,23 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 interface StyleProps {
-  size?: "small" | "mid";
+  size: "small" | "mid";
 }
 interface SelectProps extends StyleProps {
   label?: string;
+  name: string;
   selectedValue: string;
   handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   children: React.ReactNode;
 }
 
-export default function Select({ label, size = "mid", selectedValue, handleSelectChange, children }: SelectProps) {
+export default function Select({ label, name, size, selectedValue, handleSelectChange, children }: SelectProps) {
   const styles = { size };
+
   return (
     <SelectBox {...styles}>
       {label && <label htmlFor={label}>{label}</label>}
-      <select id={label ?? "filter-search"} value={selectedValue} onChange={handleSelectChange}>
+      <select id={label ?? name} name={name} value={selectedValue} onChange={handleSelectChange}>
         {children}
       </select>
     </SelectBox>

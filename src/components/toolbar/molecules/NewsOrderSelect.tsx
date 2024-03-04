@@ -9,7 +9,7 @@ export default observer(function NewsOrderSelect() {
   };
 
   return (
-    <Select label="정렬" selectedValue={newsOrder.selectedValue} handleSelectChange={handleSelectChange}>
+    <Select label="정렬" size="mid" name="order-select" selectedValue={newsOrder.selectedValue} handleSelectChange={handleSelectChange}>
       <Select.Option value="최신순" />
       <Select.Option value="오래된 순" />
     </Select>

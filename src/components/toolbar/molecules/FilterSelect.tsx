@@ -8,7 +8,7 @@ interface FilterSelectProps {
 
 export default function FilterSelect({ selectedFilter, handleSelectChange }: FilterSelectProps) {
   return (
-    <Select size="small" selectedValue={selectedFilter} handleSelectChange={handleSelectChange}>
+    <Select name="filter-select" size="small" selectedValue={selectedFilter} handleSelectChange={handleSelectChange}>
       <Select.Option value="제목" />
       <Select.Option value="내용" />
     </Select>
