@@ -1,3 +1,7 @@
+:root {
+  --silver: #dfe6e9;
+}
+
 html {
   display: flex;
   width: 100%;
