@@ -1,9 +1,13 @@
-import Test from "@/components/Test";
+"use client";
+
+import NewsBoard from "@/components/NewsBoard/NewsBoard";
+import TopToolbar from "@/components/toolbar/template/TopToolbar";
 
 export default function Home() {
   return (
     <main>
-      <Test />
+      <TopToolbar />
+      <NewsBoard />
     </main>
   );
 }
