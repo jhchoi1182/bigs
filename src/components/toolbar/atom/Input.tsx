@@ -11,11 +11,11 @@ export function useInput({ isIcon, ...props }: InputProps) {
   const [value, setValue] = useState("");
   const input = (
     <InputRelativeDiv>
-      <Input onChange={(e) => setValue(e.target.value)} {...props} />
+      <Input value={value} onChange={(e) => setValue(e.target.value)} {...props} />
       {isIcon && <SearchIcon />}
     </InputRelativeDiv>
   );
-  return [value, input];
+  return { value, input, setValue };
 }
 
 const Input = styled.input`

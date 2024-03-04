@@ -43,7 +43,7 @@ const SelectBox = styled.div<StyleProps>`
   gap: 1rem;
   select {
     height: 4rem;
-    ${({ size }) => size && sizes[size]}
+    ${({ size }) => sizes[size]}
     padding: 0.5rem;
     font-size: 1.5rem;
   }
