@@ -28,7 +28,7 @@ const SearchBarBox = styled.div`
 const FormBox = styled.form`
   display: flex;
   align-items: center;
-  gap: 5%;
+  gap: 2rem;
   ${Input} {
     width: 40rem;
     height: 3rem;

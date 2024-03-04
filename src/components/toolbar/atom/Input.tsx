@@ -19,7 +19,7 @@ export function useInput({ isIcon, ...props }: InputProps) {
 }
 
 const Input = styled.input`
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 1rem;
   border: 1px solid;
   border-radius: 10px;
 `;
