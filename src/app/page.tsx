@@ -1,6 +1,6 @@
 "use client";
 
-import NewsBoard from "@/components/NewsBoard/NewsBoard";
+import NewsBoard from "@/components/NewsBoard/template/NewsBoard";
 import TopToolbar from "@/components/toolbar/template/TopToolbar";
 import styled from "styled-components";
 
