@@ -9,7 +9,7 @@ export function filterNews(data: NewsData, filter: "title" | "desc", query: stri
   if (query && query.trim() !== "") {
     filteredItems = filterByTitleOrDescription(filteredItems, filter, query);
   }
-  page = adjustPageWithinRange(page, filteredItems.length);
+  page = adjustPageWithinRange(page, filteredItems?.length);
   const sortedFilteredItems = sortNewsItems(filteredItems, sort);
   const paginatedSortedFilteredItems = paginateNewsItems(sortedFilteredItems, page);
   const convertedItems = convertTitleAndPubDate(paginatedSortedFilteredItems);
@@ -18,7 +18,7 @@ export function filterNews(data: NewsData, filter: "title" | "desc", query: stri
     ...data,
     items: convertedItems,
     page,
-    total: filteredItems.length,
+    total: filteredItems?.length,
   };
 }
 
@@ -35,7 +35,7 @@ function sortNewsItems(items: NewsItem[], sort: "asc" | "desc" = "desc"): NewsIt
     const dateB = new Date(b.pubDate).getTime();
 
     if (dateA === dateB) {
-      return b.title.length - a.title.length;
+      return b.title?.length - a.title?.length;
     }
 
     return sort === "asc" ? dateA - dateB : dateB - dateA;

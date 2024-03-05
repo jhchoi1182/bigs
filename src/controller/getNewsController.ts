@@ -9,6 +9,7 @@ import { NewsData } from "@/type/newsData";
 function getNewsController() {
   async function fetchNews() {
     try {
+      loadingStore.setIsFetching(true);
       const data = await newsApi.getNews(
         searchValueStore.getFilterValue(),
         searchValueStore.searchKeyword,

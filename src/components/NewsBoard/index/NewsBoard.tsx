@@ -45,7 +45,7 @@ export default observer(function NewsBoard() {
                 <div className="title">제목</div>
                 <span className="time">작성일자</span>
               </NewsListHeader>
-              {newsListStore.newsData.items.length === 0 ? (
+              {newsListStore.newsData.items?.length === 0 ? (
                 <NoResult />
               ) : (
                 newsListStore.newsData.items?.map((data, i) => <NewsItem key={i} index={i} item={data} />)

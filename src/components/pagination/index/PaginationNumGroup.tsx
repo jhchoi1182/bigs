@@ -13,7 +13,7 @@ export default observer(function PaginationNumGroup() {
   const { fetchNews } = getNewsController();
   const pages = Math.ceil(newsListStore.newsData.total / 10);
   const pagesArray = Array.from({ length: pages }, (_, index) => 1 + index);
-  const isOnePage = pagesArray.length < 2;
+  const isOnePage = pagesArray?.length < 2;
 
   const goToPreviousPage = () => {
     paginationStore.goToPreviousPage();
