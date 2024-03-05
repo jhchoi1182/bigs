@@ -9,7 +9,7 @@ import { NewsData } from "@/type/newsData";
 function getNewsController() {
   async function fetchNews() {
     try {
-      const data = await newsApi.get(
+      const data = await newsApi.getNews(
         searchValueStore.getFilterValue(),
         searchValueStore.searchKeyword,
         paginationStore.currentPage,

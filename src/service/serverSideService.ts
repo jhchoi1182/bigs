@@ -46,9 +46,10 @@ function paginateNewsItems(items: NewsItem[], page: number): NewsItem[] {
   const endIndex = startIndex + pageSize;
   return items.slice(startIndex, endIndex);
 }
-function convertTitleAndPubDate(items: NewsItem[]) {
+export function convertTitleAndPubDate(items: NewsItem[], shouldDecodeDescription?: boolean) {
   return items.map((item) => ({
     ...item,
+    description: shouldDecodeDescription ? he.decode(item.description) : item.description,
     title: he.decode(item.title),
     pubDate: formatDate(item.pubDate),
   }));
