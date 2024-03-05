@@ -9,6 +9,7 @@ class NewsOrder {
 
   setSelectedValue(value: string) {
     this.selectedValue = value;
+    sessionStorage.setItem("sort", value);
   }
 
   getSelectedValue() {
@@ -16,4 +17,4 @@ class NewsOrder {
   }
 }
 
-export const newsOrder = new NewsOrder();
+export const newsOrderStore = new NewsOrder();

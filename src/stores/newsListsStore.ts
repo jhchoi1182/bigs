@@ -17,4 +17,4 @@ class News {
   }
 }
 
-export const newsLists = new News();
+export const newsListStore = new News();

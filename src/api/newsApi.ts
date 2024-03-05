@@ -1,7 +1,7 @@
 import { clientInstance as clientInstance } from "@/config/axiosConfig";
 
 export const newsApi = {
-  get: async (page: number, sort: "desc" | "asc" = "desc") => {
+  get: async (page: number, sort: "desc" | "asc" | string) => {
     const { data } = await clientInstance.get(`/api/news?page=${page}&sort=${sort}`);
     return data;
   },

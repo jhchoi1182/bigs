@@ -1,43 +1,48 @@
-import { newsApi } from "@/api/newsApi";
-import { newsLists } from "@/stores/newsListsStore";
+"use client";
+
+import { newsListStore } from "@/stores/newsListsStore";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Error from "../../ui/Error";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import NewsItem, { NewsList } from "../elements/NewsItem";
-import { newsOrder } from "@/stores/newsOrderStore";
-import { pagination } from "@/stores/paginationStore";
+import { newsOrderStore } from "@/stores/newsOrderStore";
+import { paginationStore } from "@/stores/paginationStore";
+import PaginationNumGroup from "@/components/pagination/index/PaginationNumGroup";
+import { loadingStore } from "@/stores/loadingStore";
+import useGetNews from "@/controller/getNews";
+import { errorStore } from "@/stores/errorStore";
 
 export default observer(function NewsBoard() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const { fetchNews } = useGetNews();
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const data = await newsApi.get(pagination.currentPage, newsOrder.getSelectedValue());
-        newsLists.setNewsData(data);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchNews();
-  }, [newsOrder.selectedValue, pagination.currentPage]);
+  }, []);
 
-  if (isError) return <Error height="80%" />;
+  useEffect(() => {
+    const savedCurrentPage = sessionStorage.getItem("currentPage");
+    const savedSortValue = sessionStorage.getItem("sort");
+    if (savedCurrentPage) {
+      paginationStore.setCurrentPage(+savedCurrentPage);
+    }
+    if (savedSortValue) {
+      newsOrderStore.setSelectedValue(savedSortValue);
+    }
+  }, []);
+
+  if (errorStore.isError) return <Error height="80%" />;
 
   return (
     <NewsBoardSection>
-      {isLoading ? (
+      {loadingStore.isFetching ? (
         <LoadingSpinner />
       ) : (
         <>
           <TotalNum>
             <span className="total">Total </span>
-            <span>{newsLists.newsData.total}</span>
+            <span>{newsListStore.newsData.total}</span>
           </TotalNum>
           <Board>
             <NewsUl>
@@ -45,11 +50,12 @@ export default observer(function NewsBoard() {
                 <div className="title">제목</div>
                 <span className="time">작성일자</span>
               </NewsListHeader>
-              {newsLists.newsData.items?.map((data, i) => (
+              {newsListStore.newsData.items?.map((data, i) => (
                 <NewsItem key={i} index={i} item={data} />
               ))}
             </NewsUl>
           </Board>
+          <PaginationNumGroup />
         </>
       )}
     </NewsBoardSection>
@@ -63,7 +69,7 @@ const NewsBoardSection = styled.section`
   align-items: center;
   width: 100%;
   height: 80%;
-  min-height: 40rem;
+  min-height: 45rem;
 `;
 
 const TotalNum = styled.div`

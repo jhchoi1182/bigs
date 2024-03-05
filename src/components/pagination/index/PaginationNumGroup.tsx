@@ -1,26 +1,48 @@
+"use client";
+
 import Icon from "@/components/base/Icon";
 import ArrowIcon from "@/components/ui/icons/ArrowIcon";
-import { newsLists } from "@/stores/newsListsStore";
-import { pagination } from "@/stores/paginationStore";
+import useGetNews from "@/controller/getNews";
+import { newsListStore } from "@/stores/newsListsStore";
+import { paginationStore } from "@/stores/paginationStore";
 import { observer } from "mobx-react-lite";
 import React from "react";
 import styled from "styled-components";
 
 export default observer(function PaginationNumGroup() {
-  const pages = Math.ceil(newsLists.newsData.total / 10);
+  const { fetchNews } = useGetNews();
+  const pages = Math.ceil(newsListStore.newsData.total / 10);
   const pagesArray = Array.from({ length: pages }, (_, index) => 1 + index);
+
+  const goToPreviousPage = () => {
+    paginationStore.goToPreviousPage();
+    fetchNews();
+  };
+
+  const goToNextPage = () => {
+    paginationStore.goToNextPage();
+    fetchNews();
+  };
+
+  const goToPage = (page: number) => {
+    paginationStore.setCurrentPage(page);
+    fetchNews();
+  };
 
   return (
     <PaginattionSection>
-      <ArrowIcon onClick={() => pagination.goToPreviousPage()} />
+      <ArrowIcon onClick={goToPreviousPage} />
       <PaginationNumUl>
-        {pagesArray.map((page) => (
-          <PageNum key={page} $isBold={pagination.currentPage === page} onClick={() => pagination.setCurrentPage(page)}>
-            {page}
-          </PageNum>
-        ))}
+        {pagesArray.map((page) => {
+          const isCurrentPage = paginationStore.currentPage === page;
+          return (
+            <PageNum key={page} $isBold={isCurrentPage} onClick={() => !isCurrentPage && goToPage(page)}>
+              {page}
+            </PageNum>
+          );
+        })}
       </PaginationNumUl>
-      <ArrowIcon isNext onClick={() => pagination.goToNextPage()} />
+      <ArrowIcon isNext onClick={goToNextPage} />
     </PaginattionSection>
   );
 });

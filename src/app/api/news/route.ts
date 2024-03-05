@@ -6,11 +6,10 @@ import { NextRequest } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const { data } = await serverInstance.get(`news.json?query=${encodeURI("스포츠")}&display=100`);
-    const url = new URL(request.url);
-    const params = new URLSearchParams(url.search);
+    const params = request.nextUrl?.searchParams;
     const sort = params.get("sort");
     const page = params.get("page");
-
+    
     if ((sort !== "desc" && sort !== "asc") || !page)
       return new Response(JSON.stringify("Invalid queryString"), {
         headers: {
