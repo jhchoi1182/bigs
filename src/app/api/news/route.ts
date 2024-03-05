@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const params = request.nextUrl?.searchParams;
     const sort = params.get("sort");
     const page = params.get("page");
-    
+
     if ((sort !== "desc" && sort !== "asc") || !page)
       return new Response(JSON.stringify("Invalid queryString"), {
         headers: {

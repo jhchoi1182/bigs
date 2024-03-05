@@ -1,17 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import SearchBar from "../elements/SearchBar";
-import dynamic from "next/dynamic";
-import { loadingStore } from "@/stores/loadingStore";
 import { observer } from "mobx-react-lite";
-const NewsOrderSelector = dynamic(() => import("../elements/NewsOrderSelect"), { ssr: false });
+import { loadingStore } from "@/stores/loadingStore";
+import NewsOrderSelector from "../elements/NewsOrderSelect";
 
 export default observer(function TopToolbar() {
+  useEffect(() => {
+    loadingStore.setIsOrderSelectLoading(false);
+  }, []);
+
   return (
     <ToolbarSection>
-      {loadingStore.isOrderSelectLoading && <div>로딩중..</div>}
       <NewsOrderSelector />
       <SearchBar />
     </ToolbarSection>

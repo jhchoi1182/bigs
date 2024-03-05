@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Select from "../../base/Select";
 import { observer } from "mobx-react-lite";
 import { newsOrderStore } from "@/stores/newsOrderStore";
 import useGetNews from "@/controller/getNews";
-import { loadingStore } from "@/stores/loadingStore";
 
 export default observer(function NewsOrderSelect() {
   const { fetchNews } = useGetNews();
@@ -12,10 +11,6 @@ export default observer(function NewsOrderSelect() {
     newsOrderStore.setSelectedValue(event.target.value);
     fetchNews();
   };
-
-  useEffect(() => {
-    loadingStore.setIsOrderSelectLoading(false);
-  }, []);
 
   return (
     <Select label="정렬" size="mid" name="order-select" selectedValue={newsOrderStore.selectedValue} handleSelectChange={handleSelectChange}>

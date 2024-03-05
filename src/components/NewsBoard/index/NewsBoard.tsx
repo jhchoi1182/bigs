@@ -2,7 +2,7 @@
 
 import { newsListStore } from "@/stores/newsListsStore";
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Error from "../../ui/Error";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -15,20 +15,23 @@ import useGetNews from "@/controller/getNews";
 import { errorStore } from "@/stores/errorStore";
 
 export default observer(function NewsBoard() {
+  const [isCompleteSetSort, setIsCompleteSetSort] = useState(false);
   const { fetchNews } = useGetNews();
 
   useEffect(() => {
+    if (!isCompleteSetSort) return;
     fetchNews();
-  }, []);
+  }, [isCompleteSetSort]);
 
   useEffect(() => {
     const savedCurrentPage = sessionStorage.getItem("currentPage");
     const savedSortValue = sessionStorage.getItem("sort");
-    if (savedCurrentPage) {
-      paginationStore.setCurrentPage(+savedCurrentPage);
-    }
     if (savedSortValue) {
       newsOrderStore.setSelectedValue(savedSortValue);
+      setIsCompleteSetSort(true);
+    }
+    if (savedCurrentPage) {
+      paginationStore.setCurrentPage(+savedCurrentPage);
     }
   }, []);
 
