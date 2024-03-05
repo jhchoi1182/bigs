@@ -2,10 +2,10 @@ import React from "react";
 import Select from "../../base/Select";
 import { observer } from "mobx-react-lite";
 import { newsOrderStore } from "@/stores/newsOrderStore";
-import useGetNews from "@/controller/getNews";
+import getNewsController from "@/controller/getNewsController";
 
 export default observer(function NewsOrderSelect() {
-  const { fetchNews } = useGetNews();
+  const { fetchNews } = getNewsController();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     newsOrderStore.setSelectedValue(event.target.value);

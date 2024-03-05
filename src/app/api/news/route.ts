@@ -1,6 +1,6 @@
 import { serverInstance } from "@/config/axiosConfig";
 import { handleServerSideError } from "@/service/exceptionService";
-import { sortAndPaginateNews } from "@/service/newsService";
+import { sortAndPaginateNews } from "@/service/serverSideService";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {

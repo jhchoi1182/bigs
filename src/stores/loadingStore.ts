@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 class Loading {
   isFetching = true;
   isOrderSelectLoading = true;
+  isError = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -13,6 +14,9 @@ class Loading {
   }
   setIsOrderSelectLoading(value: boolean) {
     this.isOrderSelectLoading = value;
+  }
+  setIsError(value: boolean) {
+    this.isError = value;
   }
 }
 

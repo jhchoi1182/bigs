@@ -1,17 +1,16 @@
 import { newsApi } from "@/api/newsApi";
-import { errorStore } from "@/stores/errorStore";
 import { loadingStore } from "@/stores/loadingStore";
 import { newsListStore } from "@/stores/newsListsStore";
 import { newsOrderStore } from "@/stores/newsOrderStore";
 import { paginationStore } from "@/stores/paginationStore";
 
-function useGetNews() {
+function getNewsController() {
   const fetchNews = async () => {
     try {
       const data = await newsApi.get(paginationStore.currentPage, newsOrderStore.getSelectedValue());
       newsListStore.setNewsData(data);
     } catch (error) {
-      errorStore.setIsError(true);
+      loadingStore.setIsError(true);
     } finally {
       loadingStore.setIsFetching(false);
     }
@@ -19,4 +18,4 @@ function useGetNews() {
   return { fetchNews };
 }
 
-export default useGetNews;
+export default getNewsController;

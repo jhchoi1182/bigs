@@ -2,7 +2,7 @@
 
 import Icon from "@/components/base/Icon";
 import ArrowIcon from "@/components/ui/icons/ArrowIcon";
-import useGetNews from "@/controller/getNews";
+import getNewsController from "@/controller/getNewsController";
 import { newsListStore } from "@/stores/newsListsStore";
 import { paginationStore } from "@/stores/paginationStore";
 import { observer } from "mobx-react-lite";
@@ -10,7 +10,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default observer(function PaginationNumGroup() {
-  const { fetchNews } = useGetNews();
+  const { fetchNews } = getNewsController();
   const pages = Math.ceil(newsListStore.newsData.total / 10);
   const pagesArray = Array.from({ length: pages }, (_, index) => 1 + index);
   const isOnePage = pagesArray.length < 2;

@@ -1,6 +1,7 @@
 "use client";
 
 import NewsBoard from "@/components/NewsBoard/index/NewsBoard";
+import TopToolbarLoadingSpinner from "@/components/ui/TopToolbarLoadingSpinner";
 import { loadingStore } from "@/stores/loadingStore";
 import { observer } from "mobx-react-lite";
 import dynamic from "next/dynamic";
@@ -9,21 +10,16 @@ const TopToolbar = dynamic(() => import("@/components/topToolbar/index/TopToolba
 
 export default observer(function Home() {
   return (
-    <Wrapper>
-      {loadingStore.isOrderSelectLoading && <Loading>더미</Loading>}
+    <PageWrapper>
+      {loadingStore.isOrderSelectLoading && <TopToolbarLoadingSpinner />}
       <TopToolbar />
       <NewsBoard />
-    </Wrapper>
+    </PageWrapper>
   );
 });
 
-const Wrapper = styled.main`
+const PageWrapper = styled.main`
   width: 100%;
   min-width: 88rem;
   padding: 80px 10%;
-`;
-
-const Loading = styled.div`
-  height: 11.5rem;
-  color: transparent;
 `;

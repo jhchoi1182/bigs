@@ -7,17 +7,16 @@ import styled from "styled-components";
 import Error from "../../ui/Error";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import NewsItem, { NewsList } from "../elements/NewsItem";
-import { newsOrderStore } from "@/stores/newsOrderStore";
-import { paginationStore } from "@/stores/paginationStore";
 import PaginationNumGroup from "@/components/pagination/index/PaginationNumGroup";
-import { loadingStore } from "@/stores/loadingStore";
-import useGetNews from "@/controller/getNews";
-import { errorStore } from "@/stores/errorStore";
+import getNewsController from "@/controller/getNewsController";
 import NoResult from "@/components/ui/NoResult";
+import { useSessionStorage } from "@/service/clientService";
+import { loadingStore } from "@/stores/loadingStore";
 
 export default observer(function NewsBoard() {
   const [isCompleteSetSort, setIsCompleteSetSort] = useState(false);
-  const { fetchNews } = useGetNews();
+  const { fetchNews } = getNewsController();
+  const { preventRefresh } = useSessionStorage();
 
   useEffect(() => {
     if (!isCompleteSetSort) return;
@@ -25,18 +24,10 @@ export default observer(function NewsBoard() {
   }, [isCompleteSetSort]);
 
   useEffect(() => {
-    const savedCurrentPage = sessionStorage.getItem("currentPage");
-    const savedSortValue = sessionStorage.getItem("sort");
-    if (savedSortValue) {
-      newsOrderStore.setSelectedValue(savedSortValue);
-      setIsCompleteSetSort(true);
-    }
-    if (savedCurrentPage) {
-      paginationStore.setCurrentPage(+savedCurrentPage);
-    }
+    preventRefresh(setIsCompleteSetSort);
   }, []);
 
-  if (errorStore.isError) return <Error height="80%" />;
+  if (loadingStore.isError) return <Error height="80%" />;
 
   return (
     <NewsBoardSection>
