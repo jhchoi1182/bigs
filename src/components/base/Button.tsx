@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ButtonProp extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size: "mid";
+  size: "mid" | "big";
 }
 
 export default function Button({ children, ...props }: ButtonProp) {
@@ -13,6 +13,10 @@ const sizes = {
   mid: {
     width: "8rem",
     height: "4rem",
+  },
+  big: {
+    width: "12rem",
+    height: "8rem",
   },
 };
 

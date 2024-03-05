@@ -12,7 +12,7 @@ export default function NewsItem({ index, item }: NewsItemProps) {
   return (
     <NewsList $index={index}>
       <div className="title">
-        <Link href={``}>{item.title}</Link>
+        <Link href={`/news/${item.title}`}>{item.title}</Link>
       </div>
       <span className="time">{item.pubDate}</span>
     </NewsList>
@@ -33,5 +33,9 @@ export const NewsList = styled.li<{ $index?: number }>`
   .time {
     width: 15%;
     text-align: center;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 `;
