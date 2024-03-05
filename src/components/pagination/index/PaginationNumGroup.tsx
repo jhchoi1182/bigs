@@ -16,11 +16,13 @@ export default observer(function PaginationNumGroup() {
   const isOnePage = pagesArray?.length < 2;
 
   const goToPreviousPage = () => {
+    if (paginationStore.currentPage === 1) return;
     paginationStore.goToPreviousPage();
     fetchNews();
   };
 
   const goToNextPage = () => {
+    if (paginationStore.currentPage === 10) return;
     paginationStore.goToNextPage();
     fetchNews();
   };
