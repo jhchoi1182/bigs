@@ -4,11 +4,12 @@ import Button from "@/components/base/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import getArticleController from "@/controller/getArticleController";
 import { loadingStore } from "@/stores/loadingStore";
+import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function Article({ title }: { title: string }) {
+export default observer(function Article({ title }: { title: string }) {
   const [article, setArticle] = useState({
     title: "",
     description: "",
@@ -18,7 +19,6 @@ export default function Article({ title }: { title: string }) {
   });
 
   const { fetchArticle } = getArticleController();
-
   useEffect(() => {
     fetchArticle(title, setArticle);
   }, []);
@@ -32,19 +32,19 @@ export default function Article({ title }: { title: string }) {
           <DetailSection>
             <Headline>
               <Title>
-                <h1>{article?.title}</h1>
+                <h1>{article?.title ?? "내용 없음"}</h1>
               </Title>
               <Time>
-                <time>{article?.pubDate}</time>
+                <time>{article?.pubDate ?? "내용 없음"}</time>
               </Time>
             </Headline>
             <hr />
             <Description>
-              <article>{article.description}</article>
+              <article>{article?.description ?? "내용 없음"}</article>
               <LinkTag>
                 <span>링크: </span>
-                <a href={article.link} rel="noopener noreferrer" target="_blank">
-                  {article.link}
+                <a href={article?.link} rel="noopener noreferrer" target="_blank">
+                  {article?.link ?? "내용 없음"}
                 </a>
               </LinkTag>
             </Description>
@@ -56,7 +56,7 @@ export default function Article({ title }: { title: string }) {
       )}
     </DetailWrapper>
   );
-}
+});
 
 const DetailWrapper = styled.main`
   display: flex;

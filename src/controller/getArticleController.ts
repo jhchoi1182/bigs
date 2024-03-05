@@ -5,6 +5,7 @@ import { NewsItem } from "@/type/newsData";
 function getArticleController() {
   async function fetchArticle(title: string, setArticle: React.Dispatch<React.SetStateAction<NewsItem>>) {
     try {
+      loadingStore.setIsFetching(true);
       const data = await newsApi.getDetail(decodeURIComponent(decodeURIComponent(title)));
       setArticle(data[0]);
     } catch (error) {
