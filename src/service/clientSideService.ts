@@ -8,15 +8,20 @@ export function useSessionStorage() {
     const savedSortValue = sessionStorage.getItem("sort");
     const savedSearchKeyword = sessionStorage.getItem("searchKeyword");
     const savedFilterValue = sessionStorage.getItem("filterValue");
+
     if (savedSortValue) {
       newsOrderStore.setSelectedValue(savedSortValue);
-    } else if (savedCurrentPage) {
+    }
+    if (savedCurrentPage) {
       paginationStore.setCurrentPage(+savedCurrentPage);
-    } else if (savedSearchKeyword) {
+    }
+    if (savedSearchKeyword) {
       searchValueStore.setSearchKeyword(savedSearchKeyword);
-    } else if (savedFilterValue) {
+    }
+    if (savedFilterValue) {
       searchValueStore.setFilterValue(savedFilterValue);
     }
+
     setIsCompleteSetStore(true);
   }
   return { preventRefresh };
