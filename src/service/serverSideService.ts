@@ -1,4 +1,5 @@
 import { NewsData, NewsItem } from "@/type/newsData";
+import he from "he";
 
 const pageSize = 10;
 
@@ -11,7 +12,7 @@ export function filterNews(data: NewsData, filter: "title" | "desc", query: stri
   page = adjustPageWithinRange(page, filteredItems.length);
   const sortedFilteredItems = sortNewsItems(filteredItems, sort);
   const paginatedSortedFilteredItems = paginateNewsItems(sortedFilteredItems, page);
-  const convertedItems = convertPubDate(paginatedSortedFilteredItems);
+  const convertedItems = convertTitleAndPubDate(paginatedSortedFilteredItems);
 
   return {
     ...data,
@@ -45,8 +46,12 @@ function paginateNewsItems(items: NewsItem[], page: number): NewsItem[] {
   const endIndex = startIndex + pageSize;
   return items.slice(startIndex, endIndex);
 }
-function convertPubDate(items: NewsItem[]) {
-  return items.map((item) => ({ ...item, pubDate: formatDate(item.pubDate) }));
+function convertTitleAndPubDate(items: NewsItem[]) {
+  return items.map((item) => ({
+    ...item,
+    title: he.decode(item.title),
+    pubDate: formatDate(item.pubDate),
+  }));
 }
 function formatDate(dateString: string) {
   const date = new Date(dateString);
