@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "../atom/Select";
-import { newsOrder } from "@/stores/newsOrderStore";
 import { observer } from "mobx-react-lite";
+import { newsOrder } from "@/stores/newsOrderStore";
 
 export default observer(function NewsOrderSelect() {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

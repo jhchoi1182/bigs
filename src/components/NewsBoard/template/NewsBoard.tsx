@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Error from "../../base/Error";
 import Link from "next/link";
+import LoadingSpinner from "@/components/base/LoadingSpinner";
 
 export default observer(function NewsBoard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +31,7 @@ export default observer(function NewsBoard() {
   return (
     <NewsBoardSection>
       {isLoading ? (
-        <div>로딩중</div>
+        <LoadingSpinner />
       ) : (
         <>
           <TotalNum>
@@ -60,10 +61,16 @@ export default observer(function NewsBoard() {
 });
 
 const NewsBoardSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   height: 80%;
 `;
 
 const TotalNum = styled.div`
+  align-self: flex-start;
   margin-bottom: 3rem;
   .total {
     font-weight: 500;
