@@ -1,5 +1,5 @@
 import React from "react";
-import Select from "../atom/Select";
+import Select from "../../base/Select";
 
 interface FilterSelectProps {
   selectedFilter: string;

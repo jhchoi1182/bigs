@@ -3,9 +3,9 @@ import { newsLists } from "@/stores/newsListsStore";
 import { observer } from "mobx-react-lite";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Error from "../../base/Error";
-import Link from "next/link";
-import LoadingSpinner from "@/components/base/LoadingSpinner";
+import Error from "../../ui/Error";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import NewsItem, { NewsList } from "../elements/NewsItem";
 
 export default observer(function NewsBoard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,12 +45,7 @@ export default observer(function NewsBoard() {
                 <span className="time">작성일자</span>
               </NewsListHeader>
               {newsLists.newsData.items?.map((data, i) => (
-                <NewsItem key={i} index={i}>
-                  <div className="title">
-                    <Link href={``}>{data.title}</Link>
-                  </div>
-                  <span className="time">{data.pubDate}</span>
-                </NewsItem>
+                <NewsItem key={i} index={i} item={data} />
               ))}
             </NewsUl>
           </Board>
@@ -88,23 +83,6 @@ const NewsUl = styled.ul`
   height: 100%;
 `;
 
-const NewsItem = styled.li<{ index?: number }>`
-  display: flex;
-  align-items: center;
-  height: calc(100% / 11);
-  border-bottom: ${({ index }) => (index === 9 ? "none" : "1px solid")};
-  margin-bottom: -0.1rem;
-
-  .title {
-    width: 85%;
-    text-align: center;
-  }
-  .time {
-    width: 15%;
-    text-align: center;
-  }
-`;
-
-const NewsListHeader = styled(NewsItem)`
+const NewsListHeader = styled(NewsList)`
   border-bottom: 2px solid;
 `;

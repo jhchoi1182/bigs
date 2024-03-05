@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
-import FilterSelect from "../molecules/FilterSelect";
+import FilterSelect from "./FilterSelect";
 import styled from "styled-components";
-import Input, { useInput } from "../atom/Input";
+import Input, { useInput } from "../../base/Input";
 import Button from "@/components/base/Button";
 
 export default function SearchBar() {

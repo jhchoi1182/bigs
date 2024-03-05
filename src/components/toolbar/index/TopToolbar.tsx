@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import NewsOrderSelector from "../molecules/NewsOrderSelect";
-import SearchBar from "../organisms/SearchBar";
+import NewsOrderSelector from "../elements/NewsOrderSelect";
+import SearchBar from "../elements/SearchBar";
 
 export default function TopToolbar() {
   return (

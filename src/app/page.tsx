@@ -1,7 +1,7 @@
 "use client";
 
-import NewsBoard from "@/components/NewsBoard/template/NewsBoard";
-import TopToolbar from "@/components/toolbar/template/TopToolbar";
+import NewsBoard from "@/components/NewsBoard/index/NewsBoard";
+import TopToolbar from "@/components/toolbar/index/TopToolbar";
 import styled from "styled-components";
 
 export default function Home() {
