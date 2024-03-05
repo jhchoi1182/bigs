@@ -1,20 +1,11 @@
 import { NewsData, NewsItem } from "@/type/newsData";
 
-export function sortAndPaginateNews(data: NewsData, page: number, sort: "asc" | "desc" = "desc"): NewsData {
-  const sortedItems = sortNewsItems(data.items, sort);
-  const paginatedItems = paginateNewsItems(sortedItems, page);
-  const convertedItems = convertPubDate(paginatedItems);
-
-  return {
-    items: convertedItems,
-    page: page,
-    total: data.items.length,
-  };
-}
 export function filterNews(data: NewsData, filter: "title" | "desc", query: string | null, page: number, sort: "asc" | "desc" = "desc"): NewsData {
-  if (!query) return data;
+  let filteredItems = data.items;
 
-  const filteredItems = filterByTitleOrDescription(data.items, filter, query);
+  if (query && query.trim() !== "") {
+    filteredItems = filterByTitleOrDescription(filteredItems, filter, query);
+  }
   const sortedFilteredItems = sortNewsItems(filteredItems, sort);
   const paginatedSortedFilteredItems = paginateNewsItems(sortedFilteredItems, page, 10);
   const convertedItems = convertPubDate(paginatedSortedFilteredItems);

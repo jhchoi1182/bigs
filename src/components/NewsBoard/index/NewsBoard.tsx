@@ -10,21 +10,21 @@ import NewsItem, { NewsList } from "../elements/NewsItem";
 import PaginationNumGroup from "@/components/pagination/index/PaginationNumGroup";
 import getNewsController from "@/controller/getNewsController";
 import NoResult from "@/components/ui/NoResult";
-import { useSessionStorage } from "@/service/clientService";
+import { useSessionStorage } from "@/service/clientSideService";
 import { loadingStore } from "@/stores/loadingStore";
 
 export default observer(function NewsBoard() {
-  const [isCompleteSetSort, setIsCompleteSetSort] = useState(false);
+  const [isCompleteSetStore, setIsCompleteSetStore] = useState(false);
   const { fetchNews } = getNewsController();
   const { preventRefresh } = useSessionStorage();
 
   useEffect(() => {
-    if (!isCompleteSetSort) return;
+    if (!isCompleteSetStore) return;
     fetchNews();
-  }, [isCompleteSetSort]);
+  }, [isCompleteSetStore]);
 
   useEffect(() => {
-    preventRefresh(setIsCompleteSetSort);
+    preventRefresh(setIsCompleteSetStore);
   }, []);
 
   if (loadingStore.isError) return <Error height="80%" />;

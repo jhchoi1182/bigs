@@ -3,10 +3,13 @@ import FilterSelect from "./FilterSelect";
 import styled from "styled-components";
 import Input, { useInput } from "../../base/Input";
 import Button from "@/components/base/Button";
+import getNewsController from "@/controller/getNewsController";
+import { searchValueStore } from "@/stores/searchStore";
 
 export default function SearchBar() {
   const [selectedFilter, setSelectedFilter] = useState("제목");
   const { value, input } = useInput({ isIcon: true, id: "search-input", placeholder: "검색어를 입력해주세요." });
+  const { fetchNews } = getNewsController();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFilter(event.target.value);
@@ -14,7 +17,8 @@ export default function SearchBar() {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(selectedFilter, value);
+    searchValueStore.setSearchKeyword(value);
+    fetchNews();
   };
 
   return (
