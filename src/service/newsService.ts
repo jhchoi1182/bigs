@@ -3,9 +3,10 @@ import { NewsData, NewsItem } from "@/type/newsData";
 export function sortAndPaginateNews(data: NewsData, page: number, sort: "asc" | "desc" = "desc"): NewsData {
   const sortedItems = sortNewsItems(data.items, sort);
   const paginatedItems = paginateNewsItems(sortedItems, page);
+  const convertedItems = convertPubDate(paginatedItems);
 
   return {
-    items: paginatedItems,
+    items: convertedItems,
     page: page,
     total: data.items.length,
   };
@@ -16,12 +17,13 @@ export function filterNews(data: NewsData, filter: "title" | "desc", query: stri
   const filteredItems = filterByTitleOrDescription(data.items, filter, query);
   const sortedFilteredItems = sortNewsItems(filteredItems, sort);
   const paginatedSortedFilteredItems = paginateNewsItems(sortedFilteredItems, page, 10);
+  const convertedItems = convertPubDate(paginatedSortedFilteredItems);
 
   return {
     ...data,
-    items: paginatedSortedFilteredItems,
+    items: convertedItems,
     page: page,
-    total: sortedFilteredItems.length,
+    total: filteredItems.length,
   };
 }
 
@@ -39,4 +41,23 @@ function paginateNewsItems(items: NewsItem[], page: number, pageSize: number = 1
 }
 function filterByTitleOrDescription(items: NewsItem[], filter: "title" | "desc", query: string): NewsItem[] {
   return items.filter((item) => (filter === "title" ? item.title.includes(query) : item.description.includes(query)));
+}
+function convertPubDate(items: NewsItem[]) {
+  return items.map((item) => ({ ...item, pubDate: formatDate(item.pubDate) }));
+}
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const monthFormatted = month.toString().padStart(2, "0");
+  const dayFormatted = day.toString().padStart(2, "0");
+  const hoursFormatted = hours.toString().padStart(2, "0");
+  const minutesFormatted = minutes.toString().padStart(2, "0");
+
+  return `${year}.${monthFormatted}.${dayFormatted} ${hoursFormatted}:${minutesFormatted}`;
 }
