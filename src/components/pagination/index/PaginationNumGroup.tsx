@@ -13,6 +13,7 @@ export default observer(function PaginationNumGroup() {
   const { fetchNews } = useGetNews();
   const pages = Math.ceil(newsListStore.newsData.total / 10);
   const pagesArray = Array.from({ length: pages }, (_, index) => 1 + index);
+  const isOnePage = pagesArray.length < 2;
 
   const goToPreviousPage = () => {
     paginationStore.goToPreviousPage();
@@ -31,7 +32,7 @@ export default observer(function PaginationNumGroup() {
 
   return (
     <PaginattionSection>
-      <ArrowIcon onClick={goToPreviousPage} />
+      {!isOnePage && <ArrowIcon onClick={goToPreviousPage} />}
       <PaginationNumUl>
         {pagesArray.map((page) => {
           const isCurrentPage = paginationStore.currentPage === page;
@@ -42,7 +43,7 @@ export default observer(function PaginationNumGroup() {
           );
         })}
       </PaginationNumUl>
-      <ArrowIcon isNext onClick={goToNextPage} />
+      {!isOnePage && <ArrowIcon isNext onClick={goToNextPage} />}
     </PaginattionSection>
   );
 });

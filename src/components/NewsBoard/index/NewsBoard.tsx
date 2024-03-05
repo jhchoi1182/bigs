@@ -13,6 +13,7 @@ import PaginationNumGroup from "@/components/pagination/index/PaginationNumGroup
 import { loadingStore } from "@/stores/loadingStore";
 import useGetNews from "@/controller/getNews";
 import { errorStore } from "@/stores/errorStore";
+import NoResult from "@/components/ui/NoResult";
 
 export default observer(function NewsBoard() {
   const [isCompleteSetSort, setIsCompleteSetSort] = useState(false);
@@ -53,9 +54,11 @@ export default observer(function NewsBoard() {
                 <div className="title">제목</div>
                 <span className="time">작성일자</span>
               </NewsListHeader>
-              {newsListStore.newsData.items?.map((data, i) => (
-                <NewsItem key={i} index={i} item={data} />
-              ))}
+              {newsListStore.newsData.items.length === 0 ? (
+                <NoResult />
+              ) : (
+                newsListStore.newsData.items?.map((data, i) => <NewsItem key={i} index={i} item={data} />)
+              )}
             </NewsUl>
           </Board>
           <PaginationNumGroup />

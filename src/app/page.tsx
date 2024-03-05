@@ -3,7 +3,6 @@
 import NewsBoard from "@/components/NewsBoard/index/NewsBoard";
 import { loadingStore } from "@/stores/loadingStore";
 import { observer } from "mobx-react-lite";
-// import TopToolbar from "@/components/topToolbar/index/TopToolbar";
 import dynamic from "next/dynamic";
 import styled from "styled-components";
 const TopToolbar = dynamic(() => import("@/components/topToolbar/index/TopToolbar"), { ssr: false });
