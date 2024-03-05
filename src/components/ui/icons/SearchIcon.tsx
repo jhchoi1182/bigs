@@ -1,5 +1,5 @@
 import React from "react";
-import Icon from "../base/Icon";
+import Icon from "../../base/Icon";
 
 export default function SearchIcon() {
   return (

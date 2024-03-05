@@ -7,16 +7,16 @@ import Error from "../../ui/Error";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import NewsItem, { NewsList } from "../elements/NewsItem";
 import { newsOrder } from "@/stores/newsOrderStore";
+import { pagination } from "@/stores/paginationStore";
 
 export default observer(function NewsBoard() {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const data = await newsApi.get(currentPage, newsOrder.getSelectedValue());
+        const data = await newsApi.get(pagination.currentPage, newsOrder.getSelectedValue());
         newsLists.setNewsData(data);
       } catch (error) {
         setIsError(true);
@@ -25,7 +25,7 @@ export default observer(function NewsBoard() {
       }
     };
     fetchNews();
-  }, [newsOrder.selectedValue]);
+  }, [newsOrder.selectedValue, pagination.currentPage]);
 
   if (isError) return <Error height="80%" />;
 

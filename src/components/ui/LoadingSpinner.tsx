@@ -15,7 +15,7 @@ const SpinnerContainer = styled.div`
   position: relative;
 `;
 
-const Circle = styled.div<{ index: number; circlecount: number }>`
+const Circle = styled.div<{ $index: number; $circleCount: number }>`
   width: 1.5rem;
   height: 1.5rem;
   background-color: #d9d9d9;
@@ -24,20 +24,19 @@ const Circle = styled.div<{ index: number; circlecount: number }>`
   animation: ${css`
     ${changeColor} 0.8s steps(1, end) infinite
   `};
-  ${({ index, circlecount }) => css`
-    transform: rotate(${(360 / circlecount) * index - 90}deg) translate(30px);
-    animation-delay: ${index * 0.1}s;
+  ${({ $index, $circleCount }) => css`
+    transform: rotate(${(360 / $circleCount) * $index - 90}deg) translate(30px);
+    animation-delay: ${$index * 0.1}s;
   `}
 `;
 
 export default function LoadingSpinner() {
   const circleCount = 8;
-  console.log(1);
 
   return (
     <SpinnerContainer>
       {Array.from({ length: circleCount }).map((_, index) => (
-        <Circle key={index} index={index} circlecount={circleCount} />
+        <Circle key={index} $index={index} $circleCount={circleCount} />
       ))}
     </SpinnerContainer>
   );

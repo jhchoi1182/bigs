@@ -10,7 +10,7 @@ interface NewsItemProps {
 
 export default function NewsItem({ index, item }: NewsItemProps) {
   return (
-    <NewsList index={index}>
+    <NewsList $index={index}>
       <div className="title">
         <Link href={``}>{item.title}</Link>
       </div>
@@ -19,11 +19,11 @@ export default function NewsItem({ index, item }: NewsItemProps) {
   );
 }
 
-export const NewsList = styled.li<{ index?: number }>`
+export const NewsList = styled.li<{ $index?: number }>`
   display: flex;
   align-items: center;
   height: calc(100% / 11);
-  border-bottom: ${({ index }) => (index === 9 ? "none" : "1px solid")};
+  border-bottom: ${({ $index }) => ($index === 9 ? "none" : "1px solid")};
   margin-bottom: -0.1rem;
 
   .title {

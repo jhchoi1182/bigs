@@ -1,5 +1,5 @@
 import Icon from "@/components/base/Icon";
-import SearchIcon from "@/components/icons/SearchIcon";
+import SearchIcon from "@/components/ui/icons/SearchIcon";
 import React, { useState } from "react";
 import styled from "styled-components";
 
