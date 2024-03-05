@@ -6,7 +6,7 @@ export const newsApi = {
     return data;
   },
   search: async (filter: "title" | "desc", query: string, page: number, sort: string) => {
-    const { data } = await clientInstance.get(`/api/news?filter=${filter}&query=${query}&page=${page}&sort=${sort}`);
+    const { data } = await clientInstance.get(`/api/search?filter=${filter}&query=${query}&page=${page}&sort=${sort}`);
     return data;
   },
 };
