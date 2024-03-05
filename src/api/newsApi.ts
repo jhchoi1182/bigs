@@ -1,8 +1,8 @@
-import { instance } from "@/config/axiosConfig";
+import { clientInstance as clientInstance } from "@/config/axiosConfig";
 
 export const newsApi = {
   get: async () => {
-    const data = await instance.get(`/api`);
+    const data = await clientInstance.get(`/api`);
     return data;
   },
 };
