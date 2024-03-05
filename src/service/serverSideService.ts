@@ -22,6 +22,11 @@ function sortNewsItems(items: NewsItem[], sort: "asc" | "desc" = "desc"): NewsIt
   return items.sort((a, b) => {
     const dateA = new Date(a.pubDate).getTime();
     const dateB = new Date(b.pubDate).getTime();
+
+    if (dateA === dateB) {
+      return b.title.length - a.title.length;
+    }
+
     return sort === "asc" ? dateA - dateB : dateB - dateA;
   });
 }
