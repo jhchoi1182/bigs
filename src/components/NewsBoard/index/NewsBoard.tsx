@@ -63,6 +63,7 @@ const NewsBoardSection = styled.section`
   align-items: center;
   width: 100%;
   height: 80%;
+  min-height: 40rem;
 `;
 
 const TotalNum = styled.div`
