@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import FilterSelect from "./FilterSelect";
 import styled from "styled-components";
 import Input, { useInput } from "../../base/Input";
@@ -8,7 +8,7 @@ import { searchValueStore } from "@/stores/searchStore";
 
 export default function SearchBar() {
   const [selectedFilter, setSelectedFilter] = useState("제목");
-  const { value, input } = useInput({ isIcon: true, id: "search-input", placeholder: "검색어를 입력해주세요." });
+  const { value, input, setValue } = useInput({ isIcon: true, id: "search-input", placeholder: "검색어를 입력해주세요." });
   const { fetchNews } = getNewsController();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -20,6 +20,10 @@ export default function SearchBar() {
     searchValueStore.setSearchKeyword(value);
     fetchNews();
   };
+
+  useEffect(() => {
+    setValue(sessionStorage.getItem("searchKeyword") ?? "");
+  }, []);
 
   return (
     <SearchBarBox>

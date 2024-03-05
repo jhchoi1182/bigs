@@ -4,9 +4,10 @@ import { newsListStore } from "@/stores/newsListsStore";
 import { newsOrderStore } from "@/stores/newsOrderStore";
 import { paginationStore } from "@/stores/paginationStore";
 import { searchValueStore } from "@/stores/searchStore";
+import { NewsData } from "@/type/newsData";
 
 function getNewsController() {
-  const fetchNews = async () => {
+  async function fetchNews() {
     try {
       const data = await newsApi.get(
         searchValueStore.getFilterValue(),
@@ -14,11 +15,18 @@ function getNewsController() {
         paginationStore.currentPage,
         newsOrderStore.getSelectedValue(),
       );
+      resetPaginationIfOutOfRange(data);
       newsListStore.setNewsData(data);
     } catch (error) {
       loadingStore.setIsError(true);
     } finally {
       loadingStore.setIsFetching(false);
+    }
+  }
+
+  const resetPaginationIfOutOfRange = (data: NewsData) => {
+    if (Math.ceil(data?.total / 10) < paginationStore.currentPage) {
+      paginationStore.setCurrentPage(1);
     }
   };
   return { fetchNews };
