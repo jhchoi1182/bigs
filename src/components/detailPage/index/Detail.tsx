@@ -10,7 +10,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default observer(function Article({ title }: { title: string }) {
+export default observer(function Article() {
   const [article, setArticle] = useState({
     title: "",
     description: "",
@@ -18,9 +18,10 @@ export default observer(function Article({ title }: { title: string }) {
     originallink: "",
     pubDate: "",
   });
-
   const { fetchArticle } = getArticleController();
   useEffect(() => {
+    const currentUrl = window.location.href;
+    const title = currentUrl.split("news/")[1];
     fetchArticle(title, setArticle);
   }, []);
 
@@ -71,7 +72,7 @@ const DetailWrapper = styled.main`
 const DetailSection = styled.section`
   width: 50%;
   height: 50rem;
-  min-width: 88rem;
+  min-width: 40rem;
   min-height: 50rem;
   padding: 5rem;
   border: 1px solid;
