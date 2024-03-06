@@ -70,6 +70,7 @@ const DetailWrapper = styled.main`
 const DetailSection = styled.section`
   width: 50%;
   height: 50rem;
+  min-width: 88rem;
   min-height: 50rem;
   padding: 5rem;
   border: 1px solid;
