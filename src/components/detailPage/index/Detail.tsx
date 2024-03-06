@@ -3,7 +3,7 @@
 import Button from "@/components/base/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import getArticleController from "@/controller/getArticleController";
-import { parseHtml } from "@/service/clientSideService";
+import { formatDate, parseHtml } from "@/service/clientSideService";
 import { loadingStore } from "@/stores/loadingStore";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
@@ -33,10 +33,10 @@ export default observer(function Article({ title }: { title: string }) {
           <DetailSection>
             <Headline>
               <Title>
-                <h1>{article?.title ?? "내용 없음"}</h1>
+                <h1>{parseHtml(article?.title) ?? "내용 없음"}</h1>
               </Title>
               <Time>
-                <time>{article?.pubDate ?? "내용 없음"}</time>
+                <time>{formatDate(article?.pubDate) ?? "내용 없음"}</time>
               </Time>
             </Headline>
             <hr />

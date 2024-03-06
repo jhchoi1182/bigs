@@ -12,11 +12,10 @@ export function filterNews(data: NewsData, filter: "title" | "desc", query: stri
   page = adjustPageWithinRange(page, filteredItems?.length);
   const sortedFilteredItems = sortNewsItems(filteredItems, sort);
   const paginatedSortedFilteredItems = paginateNewsItems(sortedFilteredItems, page);
-  const convertedItems = convertTitleAndPubDate(paginatedSortedFilteredItems);
 
   return {
     ...data,
-    items: convertedItems,
+    items: paginatedSortedFilteredItems,
     page,
     total: filteredItems?.length,
   };
@@ -45,28 +44,4 @@ function paginateNewsItems(items: NewsItem[], page: number): NewsItem[] {
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   return items.slice(startIndex, endIndex);
-}
-export function convertTitleAndPubDate(items: NewsItem[], shouldDecodeDescription?: boolean) {
-  return items.map((item) => ({
-    ...item,
-    description: shouldDecodeDescription ? he.decode(item.description) : item.description,
-    title: he.decode(item.title),
-    pubDate: formatDate(item.pubDate),
-  }));
-}
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  const monthFormatted = month.toString().padStart(2, "0");
-  const dayFormatted = day.toString().padStart(2, "0");
-  const hoursFormatted = hours.toString().padStart(2, "0");
-  const minutesFormatted = minutes.toString().padStart(2, "0");
-
-  return `${year}.${monthFormatted}.${dayFormatted} ${hoursFormatted}:${minutesFormatted}`;
 }

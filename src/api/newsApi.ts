@@ -6,6 +6,8 @@ export const newsApi = {
     return data;
   },
   getDetail: async (query: string) => {
+    console.log(query);
+
     const { data } = await clientInstance.get(`/api/article?query=${query}`);
     return data;
   },

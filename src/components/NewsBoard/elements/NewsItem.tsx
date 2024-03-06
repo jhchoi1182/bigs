@@ -1,4 +1,4 @@
-import { parseHtml } from "@/service/clientSideService";
+import { formatDate, parseHtml } from "@/service/clientSideService";
 import { NewsItem } from "@/type/newsData";
 import Link from "next/link";
 import React from "react";
@@ -15,7 +15,7 @@ export default function NewsItem({ index, item }: NewsItemProps) {
       <div className="title">
         <Link href={`/news/${item.title}`}>{parseHtml(item.title)}</Link>
       </div>
-      <span className="time">{item.pubDate}</span>
+      <span className="time">{formatDate(item.pubDate)}</span>
     </NewsList>
   );
 }

@@ -32,3 +32,19 @@ export function parseHtml(htmlString: string) {
   const doc = parser.parseFromString(htmlString, "text/html");
   return doc.body.textContent || "";
 }
+export function formatDate(dateString: string) {
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const monthFormatted = month.toString().padStart(2, "0");
+  const dayFormatted = day.toString().padStart(2, "0");
+  const hoursFormatted = hours.toString().padStart(2, "0");
+  const minutesFormatted = minutes.toString().padStart(2, "0");
+
+  return `${year}.${monthFormatted}.${dayFormatted} ${hoursFormatted}:${minutesFormatted}`;
+}

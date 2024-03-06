@@ -6,7 +6,7 @@ function getArticleController() {
   async function fetchArticle(title: string, setArticle: React.Dispatch<React.SetStateAction<NewsItem>>) {
     try {
       loadingStore.setIsFetching(true);
-      const data = await newsApi.getDetail(decodeURIComponent(decodeURIComponent(title)));
+      const data = await newsApi.getDetail(decodeURIComponent(title));
       setArticle(data[0]);
     } catch (error) {
       loadingStore.setIsError(true);
