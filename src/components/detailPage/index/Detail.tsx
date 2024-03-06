@@ -3,6 +3,7 @@
 import Button from "@/components/base/Button";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import getArticleController from "@/controller/getArticleController";
+import { parseHtml } from "@/service/clientSideService";
 import { loadingStore } from "@/stores/loadingStore";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
@@ -40,7 +41,7 @@ export default observer(function Article({ title }: { title: string }) {
             </Headline>
             <hr />
             <Description>
-              <article>{article?.description ?? "내용 없음"}</article>
+              <article>{parseHtml(article?.description) ?? "내용 없음"}</article>
               <LinkTag>
                 <span>링크: </span>
                 <a href={article?.link} rel="noopener noreferrer" target="_blank">

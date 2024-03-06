@@ -42,7 +42,7 @@ export default observer(function NewsBoard() {
           <Board>
             <NewsUl>
               <NewsListHeader>
-                <div className="title">제목</div>
+                <pre className="title">제목</pre>
                 <span className="time">작성일자</span>
               </NewsListHeader>
               {newsListStore.newsData.items?.length === 0 ? (
